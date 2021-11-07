@@ -10,9 +10,10 @@
 Adafruit_BNO055 bno = Adafruit_BNO055(55);
 
 // specify the connection info
-const char* ssid = "23Gracehill";
-const char* password = "scooter4ever";
+const char* ssid = "*";
+const char* password = "*";
 const char* mqtt_server = "192.168.1.10";
+
 
 
 WiFiClient wificlient;

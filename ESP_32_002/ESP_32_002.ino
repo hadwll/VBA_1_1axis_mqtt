@@ -2,8 +2,8 @@
 #include <PubSubClient.h>
 
 // specify the connection info
-const char* ssid = "23Gracehill";
-const char* password = "scooter4ever";
+const char* ssid = ".";
+const char* password = ".";
 const char* mqtt_server = "192.168.1.10";
 
 WiFiClient wificlient;
