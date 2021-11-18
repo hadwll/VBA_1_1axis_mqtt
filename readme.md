@@ -10,7 +10,9 @@
 
   ## Setup Raspberry pi with mosquitto broker
   
-  apt update+upgrade
+  run the following commands from the terminal in your pi
+  
+		apt update+upgrade
         sudo apt-get update && sudo apt-get upgrade
       
       
@@ -53,3 +55,6 @@ in the other
 				mosquitto_pub -h localhost -t test -m message
         
   
+## setup pubsubclient on esp
+07/11/2021
+

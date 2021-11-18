@@ -19,8 +19,7 @@ const char* mqtt_server = "192.168.1.10";
 WiFiClient wificlient;
 PubSubClient client(wificlient);
 
-void setup() {
-   Serial.begin(9600);
+void setup() {   Serial.begin(9600);
    Initialise_sensor();
    bno.setExtCrystalUse(true);
    Wire.begin();
@@ -37,7 +36,7 @@ void Initialise_sensor()
     Serial.print("no BNO055 detected ... Check your wiring or I2C ADDR!");
     while(1);
   }
-  else Serial.println("Sensor Initialised");
+      else Serial.println("Sensor Initialised");
 }
 
 void setup_wifi() 
@@ -76,10 +75,10 @@ void reconnect()
    }
 }
 
-void collect_data(){
+void collect_data()
+{
     sensors_event_t event; 
     bno.getEvent(&event);
-    
 }
 
 void print_data()
@@ -97,25 +96,29 @@ void print_data()
   }
   
   // this function changes the float value from the sensor library to a string and then into a char array
+  // and publishes to the broker.
 void publish_data()
 {
    String  x_str;
     char x[50];
   imu::Vector<3> accel = bno.getVector(Adafruit_BNO055::VECTOR_LINEARACCEL);
  
-    x_str = String(accel.x()); //converting ftemp (the float variable above) to a string 
-    x_str.toCharArray(x, x_str.length() + 1); //packaging up the data to publish to mqtt whoa...
+    x_str = String(accel.x()); //converting accel.x to a string 
+    x_str.toCharArray(x, x_str.length() + 1);
   
  if (client.publish("node1-sd", x))
  Serial.println("published"); 
   delay(100);
+  // if the message was sent to the broker then a debug msg is sent to the serial
 }
   
 
-
-  void loop() {
+//this loop runs continously and checks for connection to mqtt is not connected then runs reconnect function.
+  void loop() 
+  {
    
-   if (!client.connected()) {
+   if (!client.connected()) 
+   {
     reconnect();
   }
   collect_data();
