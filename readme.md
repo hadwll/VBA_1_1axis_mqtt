@@ -2,7 +2,9 @@
 
 ### Introduction
 This Readme covers the steps I took to develop a simple wireless vibration monitoring system. 
-It utilises development kit in order to prove a concept.
+It utilises development kit in order to prove a concept. A 9 axis bno055 oreinatiton sensor 
+from bosch, a Esp32 devkit2 in order to prepare the signals for MQTT and a Raspberry Pi to 
+receive the data through a python program.
  
 
 
@@ -15,7 +17,7 @@ It utilises development kit in order to prove a concept.
   run the following commands from the terminal in your pi
   
 		apt update+upgrade
-        sudo apt-get update && sudo apt-get upgrade
+			sudo apt-get update && sudo apt-get upgrade
       
       
  ##### check python3 version
@@ -33,9 +35,10 @@ It utilises development kit in order to prove a concept.
  ##### Install mosquitto onto Pi
  (if continuing from above then cd out of python dir)
  import the repository package signing key
+ 
         wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
         sudo apt-key add mosquitto-repo.gpg.key
-        sudo apt-get install mosquitto
+		sudo apt-get install mosquitto
        
  #### check mosquitto is running
         sudo systemctl status mosquitto
@@ -58,5 +61,7 @@ in the other
         
   
 ## setup pubsubclient on esp
-07/11/2021
 
+The ESP32 program is 
+
+![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/esp_flow.png?raw=true)
