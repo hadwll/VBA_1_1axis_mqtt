@@ -48,16 +48,20 @@ If you need to change the configuration then the configuration file is called mo
 #### Test Mosquitto is working
 
 Stop the service 
-				sudo systemctl stop mosquitto.service
+
+	sudo systemctl stop mosquitto.service
 				
-start is verbose mode 
-				mosquitto -v   #start in verbose mode
+start in verbose mode 
+
+	mosquitto -v   #start in verbose mode
 				
-open 2 terminals in pi or putty and in one terminal type
-				mosquitto_sub -h localhost -t test -d
+open 2 terminals in putty or on the raspbery Pi GUI and in one terminal type
+
+	mosquitto_sub -h localhost -t test -d
 
 in the other
-				mosquitto_pub -h localhost -t test -m message
+	
+	mosquitto_pub -h localhost -t test -m message
 				
 The message should show on the subscriber.
         
@@ -77,9 +81,8 @@ The ESP32 program is found in the main repository the flowchart below details th
 	 
 ## Install Grafana on the Raspberry Pi
 
-visti this link
 
-To install the latest Enterprise edition:
+To install the latest Grafana Enterprise edition:
 
 	sudo apt-get install -y apt-transport-https
 	sudo apt-get install -y software-properties-common wget
@@ -113,21 +116,22 @@ you should see the grafana spash screeen, you can login to bu admin/admin and ch
 
 go to configurations and then data sources
 
-![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/grafana1?raw=true)	
+![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/grafana1.png?raw=true)	
+
 
 configure your DB ip addrees to http://localhost:8086  if this is the case
 
 enter the DB infromation in this case I am using example save and test, ensure it is working.
 
-![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/grafana2?raw=true)	
+![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/grafana2.png?raw=true)	
 
 Select add and dashbaord, new panel
 
-![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/grafana3?raw=true)
+![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/grafana3.png?raw=true)
 
 setup the query for your dataset
 
-![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/grafana4?raw=true)
+![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/grafana4.png?raw=true)
 
 
 
