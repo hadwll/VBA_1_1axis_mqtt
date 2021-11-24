@@ -1,7 +1,9 @@
 # Read me
 
 ### Introduction
-{spam}
+This Readme covers the steps I took to develop a simple wireless vibration monitoring system. 
+It utilises development kit in order to prove a concept.
+ 
 
 
 
