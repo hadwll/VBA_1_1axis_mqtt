@@ -1,16 +1,22 @@
 # Read me
 
 ### Introduction
-This Readme covers the steps I took to develop a simple wireless vibration monitoring system. 
-It utilises development kit in order to prove a concept. A 9 axis bno055 oreinatiton sensor 
-from bosch, a Esp32 devkit2 in order to prepare the signals for MQTT and a Raspberry Pi to 
-receive the data through a python program.
+This Readme covers the steps I took to develop a simple wireless sensing system. In this instance
+I am using a picking up vibrations, but it could be any physical signal.
+
+The project utilises development kit in order to prove a concept and consists of a 9 axis bno055 
+orientation sensor from Bosch, a Esp32 devkit2 in order to prepare the signals for MQTT and a 
+Raspberry Pi to receive the data through a python program. An instance of InfluxDB and Grafana are
+running on the pi. Grafana is accessible through Nginx as reverse proxy so that the values can be 
+monitored.
+
+Hopefully this readme is clear if not then messaage me we can work through any issues and update the 
+readme.
  
 
 
 
-
-#### 06/11 
+#### 06/11/21
 
   ## Setup Raspberry pi with mosquitto broker
   
@@ -107,14 +113,16 @@ set the server to start at boot
 	
 navigate to your raspbery pi IP address and port 3000 in your web brower
 	
-	192.168.1.10:3000
+	pi-ip:3000
 	
-you should see the grafana spash screeen, you can login to bu admin/admin and change from there.
+	eg 192.168.2.8:3000
+	
+you should see the grafana spash screeen, you can login to by using admin/admin and change from there.
 
 
 ###setup the data sources
 
-go to configurations and then data sources
+go to configurations tab and then data sources
 
 ![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/grafana1.png?raw=true)	
 
@@ -151,3 +159,99 @@ the On_message function, it
 The remainder of the program is setting up clients for MQTT and Influx.
 
 ![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/rpi_flow.png?raw=true)
+
+
+## Configuring nginx as webserver and reverse proxy
+
+nginx is a powerful fast webserver I will concentrate on the points required for our purpose. This installation 
+was on the raspberypi. I did not have to alter the firewall but it may be neccessary in your case.
+
+	sudo apt update
+	sudo apt install nginx
+	
+check that nginx is running
+
+	sudo systemctl status nginx
+
+
+open a web browser and type your ip address. You should get the nginx welcome screen.
+With that complete we need to point it to our grafana 
+
+First is to setup a default index page, it likely wont be used for this task, but it is a good skill to learn. We will
+configure the reverse proxy in the next step.
+
+	sudo mkdir -p /var/www/your_domain/html
+	
+set the permissons to the directories so that they allow the owner to read, write, and execute the files while 
+granting only read and execute permissions to groups and others.
+
+	sudo chmod -R 755 /var/www/your_domain
+	
+create a sample index.html page using nano or vim
+
+	nano /var/www/your_domain/html/index.html
+	
+In order for nginx to to serve the webpage we need to create 2 server blocks. 
+one to serve the main page and one to reverse proxy the subdomain to the grafana 
+GUI.
+
+navigate to 
+
+	/etc/nginx/sites-available/your_domain
+	
+	add the folllowing code with your details.
+	
+	#Server block to serve page
+	server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+	root /var/www/integrated-vision.net;
+	index index.html;
+	server_name integrated-vision.net www.integrated-vision.net;
+	location / {
+		try_files $uri $uri/ =404;
+	}
+	}
+	#Server block to serve the sub domain
+	server {
+	listen 80;
+	server_name dashboard.integrated-vision.net;
+	location / {
+		proxy_set_header Host $host;
+		proxy_pass http://127.0.0.1:3000;
+		proxy_redirect off;
+	}
+	}
+
+
+enable the file by creating a link from it to the sites-enabled directory 
+
+	sudo ln -s /etc/nginx/sites-available/your_domain /etc/nginx/sites-enabled/
+ 
+finally check the configration of the nginx file
+
+	sudo nginx -t
+	
+if its all good then resrart Nginx
+
+	sudo systemctl restart nginx
+	
+navigate to the domain and check its all working.
+
+
+
+
+
+## Configure the ports on your router to forward incoming traffic to the RaspberryPi
+
+This is mostly going to be outside the scope of this guide, you need to consult your routers documnetation.
+The outcome is going to be that your router receives the data from the sensor on its external IP address and 
+forwards it to the raspberry pi on your internal IP address.
+
+
+## Purchase the DNS 
+
+Get yourself over to google and buy a domain name you need to setup the records to point to the IP of your RaspberryPi
+
+![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/dns.png?raw=true)
+
