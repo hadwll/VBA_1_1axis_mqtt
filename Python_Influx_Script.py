@@ -37,7 +37,7 @@ client2.create_database('example')
 client = mqtt.Client("raspberrypi_client") # Create instance of client with client ID “digi_mqtt_test”
 client.on_connect = on_connect # Define callback function for successful connection
 client.on_message = on_message # Define callback function for receipt of a message 
-client.connect('192.168.1.10', 1883) 
+client.connect('192.168.1.3', 1883) 
 #result = client2.query('select value from cpu_load_short;') 
 #print("Result: {0}".format(result))
 client.loop_forever()  # Start networking daemon
