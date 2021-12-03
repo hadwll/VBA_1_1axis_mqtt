@@ -8,7 +8,7 @@ The project utilises development kit in order to prove a concept and consists of
 orientation sensor from Bosch, a Esp32 devkit2 in order to prepare the signals for MQTT and a 
 Raspberry Pi to receive the data through a python program. An instance of InfluxDB and Grafana are
 running on the pi. Grafana is accessible through Nginx as reverse proxy so that the values can be 
-monitored.
+monitored from the internet.
 
 Hopefully this readme is clear if not then messaage me we can work through any issues and update the 
 readme.
@@ -84,9 +84,8 @@ in the other
 	mosquitto_pub -t 'test/topic' -m 'Helloworld'
 				
 The message should show on the subscriber.
-        
-		
-## setup pubsubclient on esp
+	
+##  setup pubsubclient on esp
 
 The ESP32 program is found in the main repository the flowchart below details the flow of the program
 
@@ -115,7 +114,7 @@ and check that it is running
 	
 	sudo systemctl status influxdb
 	
-## Install Influx DB and python-influxdb ?
+## Install Influx DB and python-influxdb
 
 	 pip install influxdb
 	 
@@ -156,11 +155,11 @@ navigate to your raspbery pi IP address and port 3000 in your web brower
 you should see the grafana spash screeen, you can login to by using admin/admin and change from there.
 
 
-###setup the data sources
+## Setup the data sources
 
 go to configurations tab and then data sources
 
-![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/grafana1.png?raw=true)	
+![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/grafana.png?raw=true)	
 
 configure your DB ip addrees to http://localhost:8086  if this is the case
 
@@ -194,7 +193,7 @@ The remainder of the program is setting up clients for MQTT and Influx.
 
 ## Configuring nginx as webserver and reverse proxy
 
-nginx is a powerful fast webserver I will concentrate on the points required for our purpose. This installation 
+nginx is a powerful fast webserver and reverse proxy, I will concentrate on the points required for our purpose. This installation 
 was on the raspberypi. I did not have to alter the firewall but it may be neccessary in your case.
 
 	sudo apt update
@@ -211,7 +210,7 @@ open a web browser and type your ip address. You should get the nginx welcome sc
 
 With that complete we need to point it to our grafana 
 
-First is to setup a default index page, it likely wont be used for this task, but it is a good skill to learn. We will
+First is to setup a default index page, it  wont be used for this task, but it is a good skill to learn. We will
 configure the reverse proxy in the next step.
 
 	sudo mkdir -p /var/www/your_domain/html
@@ -235,21 +234,21 @@ navigate to
 	
 add the folllowing code with your details.
 	
-	#Server block to serve page
+	#Server block to serve main page
 	server {
 	listen 80 default_server;
 	listen [::]:80 default_server;
-	root /var/www/integrated-vision.net;
+	root /var/www/yourdomain.net/;
 	index index.html;
-	server_name integrated-vision.net www.integrated-vision.net;
+	server_name yourdomain.net www.yourdomain.net;
 	location / {
 		try_files $uri $uri/ =404;
 	}
 	}
-	#Server block to serve the sub domain
+	#Server block to serve port 3000 to the sub-domain
 	server {
 	listen 80;
-	server_name dashboard.integrated-vision.net;
+	server_name yoursubdomain.yourdomain.net;
 	location / {
 		proxy_set_header Host $host;
 		proxy_pass http://127.0.0.1:3000;
@@ -261,6 +260,10 @@ add the folllowing code with your details.
 enable the file by creating a link from it to the sites-enabled directory 
 
 	sudo ln -s /etc/nginx/sites-available/your_domain /etc/nginx/sites-enabled/
+	
+You need to delete the default file from the sites-available and sites-enabled dir
+
+	sudo rm default
  
 finally check the configration of the nginx file
 
@@ -291,3 +294,5 @@ setup a subdomain for the grafana dashbaord.
 ![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/dns.PNG?raw=true)
 
 
+
+## 02/12/21
