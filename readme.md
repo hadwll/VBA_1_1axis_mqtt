@@ -28,29 +28,29 @@ apt update+upgrade
       
       
  ##### check python3 version
-        python3 --version
+	python3 --version
       
   ##### upgrade python version
-        wget https://www.python.org/ftp/python/3.9.5/Python-3.9.5.tgz
-        tar -zxvf Python-3.9.5.tgz
+	wget https://www.python.org/ftp/python/3.9.5/Python-3.9.5.tgz
+	tar -zxvf Python-3.9.5.tgz
 		
 set this flag, it enables Profile guided optimization (PGO) and Link Time Optimization (LTO). It will slow down the build process but yield a 10-20% speed boost.
-        cd Python-3.9.5
-        ./configure --enable-optimizations
+	cd Python-3.9.5
+	./configure --enable-optimizations
 	
  ##### If error
-        sudo make altinstall
+	sudo make altinstall
         
  ##### Install mosquitto and paho lib onto PI and configure
  (if continuing from above then cd out of python dir)
  
  install mosquitto and python
  
-        sudo apt-get install -y mosquitto mosquitto-clients python3-pip
+	sudo apt-get install -y mosquitto mosquitto-clients python3-pip
 
 install paho python library
 
-		python3 -m pip install paho-mqtt
+	python3 -m pip install paho-mqtt
 	
 nano into the follwoing
 	
@@ -85,14 +85,14 @@ in the other
 				
 The message should show on the subscriber.
 	
-##  setup pubsubclient on esp
+##  Setup Publisher on Esp32
 
 The ESP32 program is found in the main repository the flowchart below details the flow of the program
 
 ![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/esp_flow.png?raw=true)
 
 
-##Install Influx DB
+##Install InfluxDB
 
 InfluxDB can be installed by directly querying the official repositories of this tool. First, add them to your list, by typing the following commands:
 
