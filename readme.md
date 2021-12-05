@@ -54,13 +54,13 @@ install paho python library
 	
 nano into the follwoing
 	
-		sudo nano /etc/mosquitto/mosquitto.conf
+	sudo nano /etc/mosquitto/mosquitto.conf
 		
 append these lines to the end of the file
 
-		listener 1883
-		listener 9001
-		protocol websockets
+	listener 1883
+	listener 9001
+	protocol websockets
        
  #### check mosquitto is running
         sudo systemctl status mosquitto
@@ -89,7 +89,9 @@ The message should show on the subscriber.
 
 The ESP32 program is found in the main repository the flowchart below details the flow of the program
 
-![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/esp_flow.png?raw=true)
+
+
+![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/Images/esp_flow.png?raw=true)
 
 
 ##Install InfluxDB
