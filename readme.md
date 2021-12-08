@@ -90,7 +90,7 @@ The ESP32 program is found in the main repository the flowchart below details th
 ![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/Images/esp_flow.png?raw=true)
 
 
-##Install InfluxDB
+## Install InfluxDB
 
 InfluxDB can be installed by directly querying the official repositories of this tool. First, add them to your list, by typing the following commands:
 
