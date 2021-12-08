@@ -15,9 +15,6 @@ readme.
  
 
 
-
-#### 06/11/21
-
   ## Setup Raspberry pi with mosquitto broker
   
   run the following commands from the terminal in your pi
@@ -88,9 +85,6 @@ The message should show on the subscriber.
 ##  Setup Publisher on Esp32
 
 The ESP32 program is found in the main repository the flowchart below details the flow of the program
-
-
-
 ![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/Images/esp_flow.png?raw=true)
 
 
@@ -161,21 +155,21 @@ you should see the grafana spash screeen, you can login to by using admin/admin 
 
 go to configurations tab and then data sources
 
-![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/grafana.png?raw=true)	
+![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/Images/grafana.png?raw=true)	
 
 configure your DB ip addrees to http://localhost:8086  if this is the case
 
 enter the DB infromation in this case I am using example save and test, ensure it is working.
 
-![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/grafana2.png?raw=true)	
+![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/Images/grafana2.png?raw=true)	
 
 Select add and dashbaord, new panel
 
-![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/grafana3.png?raw=true)
+![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/Images/grafana3.png?raw=true)
 
 setup the query for your dataset
 
-![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/grafana4.png?raw=true)
+![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/Images/grafana4.png?raw=true)
 
 
 
@@ -190,7 +184,7 @@ the On_message function, it
 
 The remainder of the program is setting up clients for MQTT and Influx.
 
-![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/rpi_flow.png?raw=true)
+![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/Images/rpi_flow.png?raw=true)
 
 
 ## Configuring nginx as webserver and reverse proxy
@@ -208,7 +202,7 @@ check that nginx is running
 
 open a web browser and type your ip address. You should get the nginx welcome screen.
 
-![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/nginx.png?raw=true)
+![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/Images/nginx.png?raw=true)
 
 With that complete we need to point it to our grafana 
 
@@ -280,7 +274,6 @@ navigate to the domain and check its all working.
 
 
 
-
 ## Configure the ports on your router to forward incoming traffic to the RaspberryPi
 
 This is mostly going to be outside the scope of this guide, you need to consult your routers documnetation.
@@ -293,8 +286,6 @@ its external IP address and forwards it to the raspberry pi on your internal IP 
 Get yourself over to google and buy a domain name you need to setup the records to point to the IP of your RaspberryPi
 setup a subdomain for the grafana dashbaord.
 
-![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/dns.PNG?raw=true)
+![alt text](https://github.com/hadwll/VBA_1_1axis_mqtt/blob/main/Images/dns.PNG?raw=true)
 
 
-
-## 02/12/21
